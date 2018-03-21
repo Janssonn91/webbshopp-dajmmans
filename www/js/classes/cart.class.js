@@ -222,12 +222,11 @@ class Cart extends REST {
   }
 
   sendMail(order){
-      console.log(order);
       let body = {
         orderdate: order.orderdate,
         email: order.email,
         orderno: order.orderno,
-        username: order.customerid,
+        username: order.name,
         products: order.products,
         totalprice: order.price
       };
