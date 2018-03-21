@@ -102,9 +102,11 @@ class Admin extends REST {
       });  
     }
 
-    async searchEngineAdmin (keyword) {  
-      this.searchResult = this.orders.find(searchResult =>
-        searchResult.orderno == keyword
+    searchEngineAdmin (keyword) {
+      console.log(keyword);
+      console.log(this.orders);
+      this.searchResult = this.orders.find(order =>
+        order._id.substring(18,24) == keyword
       );      
       this.order = this.searchResult;
       this.order.orderdate = this.order.orderdate.substring(0,10);
