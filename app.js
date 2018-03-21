@@ -6,6 +6,7 @@ const materielJson = require('./json/matriel.json');
 const dummybookingJson = require('./json/dummybooking.json');
 const dummyusersJson = require('./json/dummyusers.json');
 
+//const nodemailer = require('nodemailer');
 const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
