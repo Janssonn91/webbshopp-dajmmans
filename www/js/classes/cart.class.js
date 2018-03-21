@@ -161,6 +161,10 @@ class Cart extends REST {
       app.shoppingCart = [];
       this.cartItems = [];
       this.saveCart();
+      console.log(order);
+      order.email = $('#cartemail').val();
+      order.orderdate = order.orderdate.substring(0,10);
+      this.sendMail(order);
     }
   }
 
@@ -215,6 +219,28 @@ class Cart extends REST {
         }
       }
     }
+  }
+
+  sendMail(order){
+      console.log(order);
+      let body = {
+        orderdate: order.orderdate,
+        email: order.email,
+        orderno: order.orderno,
+        username: order.customerid,
+        products: order.products,
+        totalprice: order.price
+      };
+
+      let reqObj = {
+        url: `/send-mail`,
+        method: 'POST',
+        data: JSON.stringify(body),
+        dataType: 'json',
+        processData: false,
+        contentType: "application/json; charset=utf-8"
+      };
+      $.ajax(reqObj);
   }
 
 }

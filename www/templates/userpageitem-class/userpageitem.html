@@ -1,18 +1,18 @@
 Object.assign(UserpageItem.prototype, { template(){ return `
 	<div class="card order-item">
     <div class="card-header" id="headingOne">
-      <h5 class="mb-0">
+      <h4 class="mb-0">
         <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse${this.co}" aria-expanded="false" aria-controls="collapse${this.co}">
           Beställning #${this._id}
         </button>
-      </h5>
+      </h4>
     </div>
     <div id="collapse${this.co}" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
       <div class="card-body">
-        <p><b>Ordern är: ${this.status}</b></p>
-      	<p>${this.products.length == 1 ? 'Produkt' : 'Produkter'}: ${this.productName}</p>
-        <p>Beställd: ${this.orderdate}</p>
-        <p>Totalpris: ${this.price}</p>
+        <h5><b>Ordern är: ${this.status}</b></h5>
+      	<h5>${this.products.length == 1 ? 'Produkt' : 'Produkter'}: ${this.productName}</h5>
+        <h5>Beställd: ${this.orderdate}</h5>
+        <h5>Totalpris: ${this.price} kr</h5>
       </div>
     </div>
   </div>
