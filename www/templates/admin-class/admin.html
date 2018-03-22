@@ -3,31 +3,37 @@ Object.assign(Admin.prototype, { template1(){ return `
         <div class="col-12">
             <form class="form-inline d-flex justify-content-center my-4">
                 <input class="form-control mr-sm-2 col-6" id="adminKeyword" type="search" placeholder="Sökorder" aria-label="Sökorder">
-                <button class="btn btn-outline-secondary my-2 my-sm-0" id="adminSearch">Sökorder</button>
+                <button class="btn btn-outline-secondary my-2 my-sm-0 " id="adminSearch">Sökorder</button>
+                
             </form>
         </div>
     </div>
     <div class="row">
         <div class="col-12">
-            <ul class="list-group list-group-flush orderList">
-                <li class="list-group-item bg-dark">
-                    <div class="row">
-                        <div class="col-2">
-                            <h6>Order</h6>
-                        </div>
-                        <div class="col-3">
-                            <h6>Datum</h6>
-                        </div>
-                        <div class="col-3">
-                            <h6>Klient</h6>
-                        </div>
-                        <div class="col-2">
-                            <h6>Status</h6>
-                        </div>
-                        
+        <ul class="list-group list-group-flush ">
+            <li class="list-group-item bg-dark">
+                <div class="row">
+                    <div class="col-3 col-lg-2">
+                        <h6>Order</h6>
                     </div>
-                </li>
+                    <div class="col-3 col-lg-3">
+                        <h6>Datum</h6>
+                    </div>
+                    <div class="col-3 col-lg-3">
+                        <h6>Klient</h6>
+                    </div>
+                    <div class="col-3 col-lg-2">
+                        <h6>Status</h6>
+                    </div>
+                </div>
+            </li>
             </ul>
+            <ul class="list-group list-group-flush orderList">
+                
+            </ul>
+        </div>
+        <div class="col-12 mt-lg-5">
+            <button class="btn btn-outline-secondary my-5 my-sm-0 d-none" id="clearSearch">Rensa sökningen</button>
         </div>
     </div> 
 `;}});

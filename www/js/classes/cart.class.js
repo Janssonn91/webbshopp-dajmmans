@@ -8,6 +8,7 @@ class Cart extends REST {
   }
 
   async getCartItems() {
+    this.userId = await UserHandler.check();
     let all = new All();
     await this.loadCart();
     for (let item of app.shoppingCart) {
@@ -137,16 +138,19 @@ class Cart extends REST {
   }
 
   async confirmOrder() {
+
     if(app.shoppingCart.length !== 0) {
       let adresses = this.approveCustomerData();
       let totalPrice = this.getTotalPrice();
       let totalVat = this.getTotalVat();
+      let user = (await UserHandler.check());
 
       let order = await Order.create({
+      name: user[0].firstName + ' ' + user[0].lastName,
       orderno: 123,
       products: app.shoppingCart,
       orderdate: Date.now(),
-      customerid: "String",
+      customerid: this.userId[0]._id,
       price: totalPrice,
       vat: totalVat,
       adress: adresses
@@ -181,7 +185,6 @@ class Cart extends REST {
   async click() {
     if ($(event.target).hasClass('confirmorder')) {
       this.user = await UserHandler.check();
-      console.log(this.user)
       if(!this.user[0]){
         $('.checkout-summery .alert').remove();
         $('.checkout-summery').append(`

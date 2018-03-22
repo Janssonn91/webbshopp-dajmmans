@@ -50,7 +50,10 @@ class Userpage extends REST {
 		} catch (e) {
   			console.error('Strul med rendering, försök igen!', (e));
   		}
-
+      setTimeout(() => {
+        $('main').empty();
+        app.user.render('main', 1);
+      }, 100);
 	};
 
   }
