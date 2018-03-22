@@ -143,8 +143,10 @@ class Cart extends REST {
       let adresses = this.approveCustomerData();
       let totalPrice = this.getTotalPrice();
       let totalVat = this.getTotalVat();
+      let user = (await UserHandler.check());
 
       let order = await Order.create({
+      name: user[0].firstName + ' ' + user[0].lastName,
       orderno: 123,
       products: app.shoppingCart,
       orderdate: Date.now(),

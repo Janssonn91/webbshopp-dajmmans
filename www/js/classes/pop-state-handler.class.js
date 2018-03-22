@@ -78,7 +78,7 @@ class PopStateHandler extends REST {
     }
     // Call the right method
     let methodName = urls[url];
-    
+
     if (methodName =='product') {
       let productId = url.split('/')[3];
       this[methodName](productId);
@@ -170,7 +170,7 @@ class PopStateHandler extends REST {
   admin(){
     this.empty();
     app.admin = new Admin();
-    app.admin.render('main',1);
+    app.admin.render('main','1');
   }
 
   cart(){

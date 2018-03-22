@@ -7,11 +7,9 @@ class ProductPage extends REST {
     this.productId = productId;
     this.productSelected = All.allProducts.find( selectedProduct => selectedProduct._id === productId);
     this.productSelected.quantity = 1;
-
   }
 
   click() {
-    console.log(this)
     if ($(event.target).hasClass('addToCart') && this.productSelected.stockBalance) {
       const checkShoppingCart = (checkObj) => {
         for (let product of app.shoppingCart) {

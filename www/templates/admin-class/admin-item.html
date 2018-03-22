@@ -1,20 +1,20 @@
 Object.assign(Admin.prototype, { template2(){ return `
     <li class="list-group-item p-0">
         <div class="row orderItem admin-item p-0 m-0" data-toggle="collapse" data-target="#${this.order._id}" id="item-${this.order._id}" value="Open">
-            <div class="col-2 itemContainer muteContent">
-                <p class="itemContent">${this.order.orderno}</p>
+            <div class="col-3 col-lg-2 itemContainer muteContent">
+                <p class="itemContent">${this.orderRef}</p>
             </div>
-            <div class="col-3 itemContainer muteContent">
+            <div class="col-3 col-lg-3 itemContainer muteContent">
                 <p class="itemContent">${this.order.orderdate}</p>
             </div>
-            <div class="col-3 itemContainer muteContent">
-                <p class="itemContent">${this.order.customerid}</p>
+            <div class="col-3 col-lg-3 itemContainer muteContent">
+                <p class="itemContent">${this.order.name}</p>
             </div>
-            <div class="col-2 itemContainer muteContent">
-                <p class="itemContent" id="status-title-${this.order._id}">${this.order.status}</p>
+            <div class="col-3 col-lg-2 itemContainer muteContent">
+                <p class="itemContent itemStatus" id="status-title-${this.order._id}">${this.order.status}</p>
             </div>
             <div class="col-2 itemContainer d-flex align-items-center flex-row-reverse p-0 mr-0 muteContent">
-                <button class="btn btn-dark btn-sm btnDetails" id="orderDetails-${this.order._id}" value="Open">
+                <button class="btn btn-dark btn-sm btnDetails d-none d-lg-flex" id="orderDetails-${this.order._id}" value="Open">
                     Öppna detaljer
                 </button>
             </div>
@@ -23,50 +23,50 @@ Object.assign(Admin.prototype, { template2(){ return `
             <div class="row p-2">
                 <p class="col-6"><u>Orderdetaljer</u></p>
             </div>
-            
+
             <div class="row p-2">
-                <div class="col-3">
+                <div class="col-md-3">
                     <p>
                         <b>Namn:</b>
-                        ${this.order.customerid}
+                        ${this.order.name}
                     </p>
                 </div>
-                <div class="col-3">
+                <div class="col-md-3">
                     <p>
                         <b>Pris:</b>
                         ${this.order.price} SEK
                     </p>
                 </div>
-                <div class="col-3">
+                <div class="col-md-3">
                     <p>
                         <b>VAT:</b>
                         ${this.order.vat} SEK
                     </p>
                 </div>
-                <div class="col-3">
-                    <p>
-                        <b>${this.order.products.length == 1 ? 'Produkt' : 'Produkter'}:</b> ${this.order.products.toString()}
+                <div class="col-md-3">
+                    <p class="orderProductDetail">
+                        <b>${this.orderProductQuantity == 1 ? 'Produkt' : 'Produkter'}:</b> ${this.product.title.toString()} (${this.orderProductQuantity})
                     </p>
                 </div>
-                <div class="col-3">
+                <div class="col-md-3">
                     <p>
                         <b>Beordrade Datum:</b> ${this.order.orderdate}
                     </p>
                 </div>
-                <div class="col-3">
+                <div class="col-md-3">
                     <p>
-                        <b>Behandlad Datum:</b> ${this.order.orderdate}
+                        <b>Behandlad Datum:</b> --
                     </p>
                 </div>
-                <div class="col-3">
+                <div class="col-md-3">
                     <p>
-                        <b>Skickad Datum:</b> ${this.order.orderdate}
+                        <b>Skickad Datum:</b> --
                     </p>
                 </div>
                 <div class="col-12">
                     <div class="card card-body border-0 p-0">
                         <div class="progress" id="progress-${this.order._id}">
-                            
+
                         </div>
                     </div>
                 </div>
@@ -84,8 +84,8 @@ Object.assign(Admin.prototype, { template2(){ return `
                     </div>
                 </div>
             </div>
-            
+
         </div>
     </li>
-     
+
 `;}});
