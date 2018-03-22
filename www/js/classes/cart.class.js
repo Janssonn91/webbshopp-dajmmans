@@ -155,6 +155,7 @@ class Cart extends REST {
       vat: totalVat,
       adress: adresses
       });
+      console.log(order);
       this.adjustStock(order);
       $('#confirmorder').modal('show');
       app.shoppingCart = [];
@@ -162,6 +163,8 @@ class Cart extends REST {
       this.saveCart();
     }
   }
+
+  setOrderNo(){}
 
   async adjustStock(order) {
     for(let product of order.products) {
