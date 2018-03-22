@@ -78,10 +78,9 @@ class PopStateHandler extends REST {
     }
     // Call the right method
     let methodName = urls[url];
-    
+
     if (methodName =='product') {
       let productId = url.split('/')[3];
-      console.log(productId);
       this[methodName](productId);
     }
     else{
@@ -130,7 +129,6 @@ class PopStateHandler extends REST {
   product(productId){
     this.empty();
     app.productPage = new ProductPage();
-    console.log(productId)
     app.productPage.getProduct(productId);
     app.productPage.render('main');
   }

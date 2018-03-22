@@ -156,7 +156,6 @@ class Cart extends REST {
       adress: adresses
       });
       this.adjustStock(order);
-      console.log(order);
       $('#confirmorder').modal('show');
       app.shoppingCart = [];
       this.cartItems = [];
@@ -186,7 +185,6 @@ class Cart extends REST {
   async click() {
     if ($(event.target).hasClass('confirmorder')) {
       this.user = await UserHandler.check();
-      console.log(this.user)
       if(!this.user[0]){
         $('.checkout-summery .alert').remove();
         $('.checkout-summery').append(`

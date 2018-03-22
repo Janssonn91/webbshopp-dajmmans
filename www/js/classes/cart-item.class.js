@@ -55,7 +55,7 @@ class CartItem extends REST {
         return null;
       }
       else {
-        let shoppingCartGlobal = this.cart.app.shoppingCart.find((m) => this._id == m._id);
+        let shoppingCartGlobal = app.shoppingCart.find((m) => this._id == m._id);
         shoppingCartGlobal.quantity += 1;
         this.quantity += 1;
         this.renderCart();
