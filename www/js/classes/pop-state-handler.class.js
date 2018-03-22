@@ -66,7 +66,8 @@ class PopStateHandler extends REST {
       '/register': 'register',
       '/mina_sidor': 'userPage',
       '/mina_sidor_info': 'userPage2',
-      '/admin': 'admin'
+      '/admin': 'admin',
+      '/kopvilkor': 'terms'
     };
 
     //looping through ID
@@ -188,6 +189,12 @@ class PopStateHandler extends REST {
     this.empty();
     app.userPage = new Userpage(this);
     app.userPage.render('main', '2');
+  }
+
+  terms(){
+    this.empty();
+    app.terms = new Terms(this);
+    app.terms.render();
   }
 
   empty() {
