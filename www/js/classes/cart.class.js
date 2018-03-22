@@ -183,7 +183,6 @@ class Cart extends REST {
   async click() {
     if ($(event.target).hasClass('confirmorder')) {
       this.user = await UserHandler.check();
-      console.log(this.user)
       if(!this.user[0]){
         $('.checkout-summery .alert').remove();
         $('.checkout-summery').append(`

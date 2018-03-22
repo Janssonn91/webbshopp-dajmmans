@@ -5,9 +5,7 @@ class ProductPage extends REST {
 
   async getProduct(productId){
     this.productId = productId;
-    console.log(productId)
     this.productSelected = All.allProducts.find( selectedProduct => selectedProduct._id === productId);
-    console.log(this.productSelected.imageLink);
     this.productSelected.quantity = 1;
 
   }
