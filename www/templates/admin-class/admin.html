@@ -3,7 +3,8 @@ Object.assign(Admin.prototype, { template1(){ return `
         <div class="col-12">
             <form class="form-inline d-flex justify-content-center my-4">
                 <input class="form-control mr-sm-2 col-6" id="adminKeyword" type="search" placeholder="Sökorder" aria-label="Sökorder">
-                <button class="btn btn-outline-secondary my-2 my-sm-0" id="adminSearch">Sökorder</button>
+                <button class="btn btn-outline-secondary my-2 my-sm-0 " id="adminSearch">Sökorder</button>
+                
             </form>
         </div>
     </div>
@@ -30,6 +31,9 @@ Object.assign(Admin.prototype, { template1(){ return `
             <ul class="list-group list-group-flush orderList">
                 
             </ul>
+        </div>
+        <div class="col-12 mt-5 text-center">
+            <button class="btn btn-outline-secondary my-5 my-sm-0 d-none" id="clearSearch">Rensa sökningen</button>
         </div>
     </div> 
 `;}});

@@ -32,6 +32,7 @@ class App extends REST {
     this.Book = new Book();
     this.order = new Order();
     this.logout = new Logout();
+    this.admin = new Admin();
     this.popState = new PopStateHandler();
   }
 
