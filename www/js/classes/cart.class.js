@@ -159,18 +159,6 @@ class Cart extends REST {
       this.adjustStock(order);
       $('#confirmorder').modal('show');
 
-      this.productName = [];
-      // let all = new All();
-
-      // order.products.forEach( async (product) => {
-      //   let skatt = await all.getResult({_id: product._id});
-      //   this.productName.push(skatt[0].title);
-      // });
-      order.products.forEach( async (product) => {
-        let kalle = All.allProducts.filter((o) => o._id == product._id);
-        this.productName.push(kalle[0]);
-      });
-      
       app.shoppingCart = [];
       this.cartItems = [];
       this.saveCart();
@@ -179,7 +167,7 @@ class Cart extends REST {
       order.orderno = order._id.substring(18,24);
       order.save();
       //setTimeout(() => {this.sendMail(order, this.productName)}, 100);
-      await this.sendMail(order, this.productName)
+      await this.sendMail(order)
     }
   }
 
@@ -235,19 +223,28 @@ class Cart extends REST {
     }
   }
 
-  sendMail(order, productName){
-    console.log(productName[0]);
-    let names = '';
+  sendMail(order){
+
+    let productName = [];
+    let quantity = [];
+    order.products.forEach( async (product) => {
+      let kalle = All.allProducts.filter((o) => o._id == product._id);
+      productName.push(kalle[0]);
+      quantity.push(product.quantity);
+    });
+
+    let productItems = '';
+
     for(let i = 0; i < productName.length; i++){
-      names += productName[i].title + ', ';
+      productItems += productName[i].title + ' (' + quantity[i] + '), ';
     }
-    console.log(names);
+
       let body = {
         orderdate: order.orderdate,
         email: order.email,
         orderno: order.orderno,
         username: order.name,
-        products: names,
+        products: productItems,
         totalprice: order.price
       };
 
