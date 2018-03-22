@@ -1,7 +1,6 @@
 const nodemailer = require('nodemailer');
 
 module.exports = function(req, res) {
-    console.log('hej');
 
     nodemailer.createTestAccount((err, account) => {
         let transporter = nodemailer.createTransport({
@@ -15,7 +14,6 @@ module.exports = function(req, res) {
             }
         });
 
-        console.log('req body', req.body);
         // setup email data with unicode symbols 
         let mailOptions = {
 
