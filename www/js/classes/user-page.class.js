@@ -18,22 +18,6 @@ class Userpage extends REST {
   	this.renderOrders(orders);
   	}
 
-	/*sortOrders(orders){
-  	let oldOrders = [];
-
-  	let nowDate = new Date();
-        let month = nowDate.getMonth() + 1;
-        if (month < 10) {
-            month = "0" + month;
-        }
-        let day = nowDate.getDate();
-        if (day < 10) {
-            day = "0" + day;
-        }
-        let dateString = `${nowDate.getFullYear()}-${month}-${day}`
-        this.renderOrders(orders, dateString);
-	}*/
-
 	async renderOrders(orders){
 
     try {
