@@ -1,19 +1,21 @@
 Object.assign(Userpage.prototype, { template1(){ return `
+<div class="row">
+  <div class="col-12 col-md-8 mx-auto">
 <div class="my-4">
 	<h4 class="card-title text-center">Du är inloggad som: ${this.user.firstName}</h4>
-  <div class="row justify-content-center">
-    <div class="card col-5  order-area">
+  <div class="justify-content-center">
+    <div class="card order-area">
   		<div class="card-header">
 		    <ul class="nav nav-tabs card-header-tabs">
 		      <li class="nav-item">
-		        <a class="nav-link pop user-active" href="/mina_sidor">Ordrar</a>
+		        <a class="nav-link pop border-0 user-active" href="/mina_sidor">Ordrar</a>
 		      </li>
 		      <li class="nav-item">
-		        <a class="nav-link pop" href="/mina_sidor_info">Användaruppgifter</a>
+		        <a class="nav-link pop border-0" href="/mina_sidor_info">Användaruppgifter</a>
 		      </li>
 		    </ul>
   		</div>
-	  	<div class="card-body">
+	  	<div class="card-body p-3">
 		  	<h4 class="mb-2 mt-3">Dina aktuella ordrar:</h4>
 		  	${this.activeOrders.length == 0 ? '' : 'Klicka på en order för mer info.'}
 		    <div id="accordion" class="active-orders mt-2 render-order-area">
@@ -27,5 +29,7 @@ Object.assign(Userpage.prototype, { template1(){ return `
 	  	</div>
 		</div>
   </div>
+</div>
+</div>
 </div>
 `;}});

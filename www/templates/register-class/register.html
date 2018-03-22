@@ -1,36 +1,41 @@
 Object.assign(Register.prototype, { template(){ return `
-      <form id="registerForm" role="form" >
-						<p id="regSuccess" class="alert alert-success text-center border d-none"></p>
-          	<p id="regFail" class="alert alert-danger border text-center mt-2 d-none"></p>
-					  <div class="form-group">
-					    <label for="exampleInputEmail1">E-postadress</label>
-					    <input type="email" class="form-control" required id="registerEmail" aria-describedby="emailHelp" placeholder="t.ex. svensson@gmail.com">
-					  </div>
-            <div class="form-group">
-					    <label for="exampleInputPassword1">Ange ditt förnamn</label>
-					    <input type="text" class="form-control" required id="registerFirstName" placeholder="Förnamn">
-					  </div>
-            <div class="form-group">
-					    <label for="exampleInputPassword1">Ange ditt efternamn</label>
-					    <input type="text" class="form-control" required id="registerLastName" placeholder="efternamn">
-					  </div>
-            <div class="form-group">
-					    <label for="exampleInputPassword1">Ange din adress</label>
-					    <input type="text" class="form-control" required id="registerAdress" placeholder="Adress">
-					  </div>
-            <div class="form-group">
-					    <label for="exampleInputPassword1">Ange ditt postnummer</label>
-					    <input type="text" class="form-control" required id="registerpostnr" placeholder="post nummer">
-					  </div>
-            <div class="form-group">
-					    <label for="exampleInputPassword1">Ange din post ort</label>
-					    <input type="text" class="form-control" required id="registerPostOrt" placeholder="post ort">
-					  </div>
-					  <div class="form-group">
-					    <label for="exampleInputPassword1">Ange ett lösenord</label>
-					    <input type="password" class="form-control" required id="registerPassword" placeholder="Lösenord">
-					  </div>
-					  <input type="submit" class="btn btn-success register btn-block mb-3" value="Registrera"></input>
-					</form>
+      <div class="row">
+        <div class="col-12 mx-auto col-md-6">
+          <h1>Skapa Konto <i class="fas fa-plus-circle awesomeness"></i></h1>
+          <form id="registerForm" role="form" >
+    						<p id="regSuccess" class="alert alert-success text-center border d-none"></p>
+              	<p id="regFail" class="alert alert-danger border text-center mt-2 d-none"></p>
+    					  <div class="form-group">
+    					    <label for="exampleInputEmail1">E-postadress</label>
+    					    <input type="email" class="form-control" required id="registerEmail" aria-describedby="emailHelp" placeholder="t.ex. svensson@gmail.com">
+    					  </div>
+                <div class="form-group">
+    					    <label for="exampleInputPassword1">Ange ditt förnamn</label>
+    					    <input type="text" class="form-control" required id="registerFirstName" placeholder="Förnamn">
+    					  </div>
+                <div class="form-group">
+    					    <label for="exampleInputPassword1">Ange ditt efternamn</label>
+    					    <input type="text" class="form-control" required id="registerLastName" placeholder="efternamn">
+    					  </div>
+                <div class="form-group">
+    					    <label for="exampleInputPassword1">Ange din adress</label>
+    					    <input type="text" class="form-control" required id="registerAdress" placeholder="Adress">
+    					  </div>
+                <div class="form-group">
+    					    <label for="exampleInputPassword1">Ange ditt postnummer</label>
+    					    <input type="text" class="form-control" required id="registerpostnr" placeholder="post nummer">
+    					  </div>
+                <div class="form-group">
+    					    <label for="exampleInputPassword1">Ange din post ort</label>
+    					    <input type="text" class="form-control" required id="registerPostOrt" placeholder="post ort">
+    					  </div>
+    					  <div class="form-group">
+    					    <label for="exampleInputPassword1">Ange ett lösenord</label>
+    					    <input type="password" class="form-control" required id="registerPassword" placeholder="Lösenord">
+    					  </div>
+    					  <input type="submit" class="btn btn-success register btn-block mb-3" value="Registrera"></input>
+    					</form>
+            </div>
+          </div>
 
   `;}});
