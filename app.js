@@ -6,6 +6,7 @@ const materielJson = require('./json/matriel.json');
 const dummybookingJson = require('./json/dummybooking.json');
 const dummyusersJson = require('./json/dummyusers.json');
 
+//const nodemailer = require('nodemailer');
 const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
@@ -68,6 +69,10 @@ order.setupImportRoute(dummybookingJson);
 userinfo.setupImportRoute(dummyusersJson);
 u.setupImportRoute(dummyusersJson);
 cart.setupImportRoute();
+
+const mailer = require('./classes/sendmail.class');
+//let sendMail = new mailer(app);
+app.post('/send-mail', mailer)
 
 app.get(/^[^\.]*$/, (req, res) => {
  res.sendFile(__dirname + '/www/index.html');

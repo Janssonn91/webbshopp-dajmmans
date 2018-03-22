@@ -121,7 +121,8 @@ class Cart extends REST {
       $('.checkout-summery').append(`
 
         <div class="alert alert-danger alert-dismissible fade show mb-5 mt-3" role="alert">
-          <strong>Försök igen! Kolla över det du skrivit så det verkligen stämmer.</strong>
+          <strong>Försök igen! Kolla över det du skrivit så det verkligen stämm,
+          er.</strong>
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -158,9 +159,16 @@ class Cart extends REST {
       console.log(order);
       this.adjustStock(order);
       $('#confirmorder').modal('show');
+
       app.shoppingCart = [];
       this.cartItems = [];
       this.saveCart();
+      order.email = $('#cartemail').val();
+      order.orderdate = order.orderdate.substring(0,10);
+      order.orderno = order._id.substring(18,24);
+      order.save();
+      //setTimeout(() => {this.sendMail(order, this.productName)}, 100);
+      await this.sendMail(order)
     }
   }
 
@@ -214,6 +222,42 @@ class Cart extends REST {
         }
       }
     }
+  }
+
+  sendMail(order){
+
+    let productName = [];
+    let quantity = [];
+    order.products.forEach( async (product) => {
+      let kalle = All.allProducts.filter((o) => o._id == product._id);
+      productName.push(kalle[0]);
+      quantity.push(product.quantity);
+    });
+
+    let productItems = '';
+
+    for(let i = 0; i < productName.length; i++){
+      productItems += productName[i].title + ' (x' + quantity[i] + '), ';
+    }
+
+      let body = {
+        orderdate: order.orderdate,
+        email: order.email,
+        orderno: order.orderno,
+        username: order.name,
+        products: productItems,
+        totalprice: order.price
+      };
+
+      let reqObj = {
+        url: `/send-mail`,
+        method: 'POST',
+        data: JSON.stringify(body),
+        dataType: 'json',
+        processData: false,
+        contentType: "application/json; charset=utf-8"
+      };
+      $.ajax(reqObj);
   }
 
 }
