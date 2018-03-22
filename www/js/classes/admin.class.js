@@ -46,7 +46,7 @@ class Admin extends REST {
         that.openDetails();
         that.changeOrderStatus();
         that.searchAdminOrders();
-        $('#clearSearch').addClass('d-none');
+        $('#clearSearch').fadeTo(100, 0).addClass('d-none');
       });
     }
 
@@ -120,7 +120,7 @@ class Admin extends REST {
         this.render('.orderList',2);
         this.render(`#progress-${this.searchResult._id}`, 3);
         this.orderStatus(this.searchResult.status);
-        $('#clearSearch').removeClass('d-none'); 
+        $('#clearSearch').removeClass('d-none').fadeTo(500, 1); 
       }
     }
   }
