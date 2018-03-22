@@ -13,7 +13,6 @@ class HeaderButton extends REST {
       $('#headerButton').empty();
       this.render('#headerButton', 2);
     }else if (loggedInUser[0].email == 'admin@admin.se') {
-      console.log('template 3');
       $('#headerButton').empty();
       this.render('#headerButton', 3);
     }
