@@ -121,7 +121,8 @@ class Cart extends REST {
       $('.checkout-summery').append(`
 
         <div class="alert alert-danger alert-dismissible fade show mb-5 mt-3" role="alert">
-          <strong>Försök igen! Kolla över det du skrivit så det verkligen stämmer.</strong>
+          <strong>Försök igen! Kolla över det du skrivit så det verkligen stämm,
+          er.</strong>
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -157,13 +158,28 @@ class Cart extends REST {
       });
       this.adjustStock(order);
       $('#confirmorder').modal('show');
+
+      this.productName = [];
+      // let all = new All();
+
+      // order.products.forEach( async (product) => {
+      //   let skatt = await all.getResult({_id: product._id});
+      //   this.productName.push(skatt[0].title);
+      // });
+      order.products.forEach( async (product) => {
+        let kalle = All.allProducts.filter((o) => o._id == product._id);
+        this.productName.push(kalle[0]);
+      });
+      
       app.shoppingCart = [];
       this.cartItems = [];
       this.saveCart();
-      console.log(order);
       order.email = $('#cartemail').val();
       order.orderdate = order.orderdate.substring(0,10);
-      this.sendMail(order);
+      order.orderno = order._id.substring(18,24);
+      order.save();
+      //setTimeout(() => {this.sendMail(order, this.productName)}, 100);
+      await this.sendMail(order, this.productName)
     }
   }
 
@@ -219,13 +235,19 @@ class Cart extends REST {
     }
   }
 
-  sendMail(order){
+  sendMail(order, productName){
+    console.log(productName[0]);
+    let names = '';
+    for(let i = 0; i < productName.length; i++){
+      names += productName[i].title + ', ';
+    }
+    console.log(names);
       let body = {
         orderdate: order.orderdate,
         email: order.email,
         orderno: order.orderno,
         username: order.name,
-        products: order.products,
+        products: names,
         totalprice: order.price
       };
 

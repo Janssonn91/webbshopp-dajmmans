@@ -38,7 +38,7 @@ module.exports = function(req, res) {
                 <img src="cid:dajmmanslogo@example.com"/>
                 <p><strong>Hejsan ${req.body.username}</strong></p>
                 <h1>Orderbekräftelse, order #${req.body.orderno}</h1>
-                <p>Du har beställt ${req.body.products}, för ${req.body.totalprice} kr. Ordern mottagen ${req.body.orderdate}<p>
+                <p>Du har beställt ${req.body.products} för ${req.body.totalprice} kr. Ordern mottagen ${req.body.orderdate}<p>
                 <p>Tack för din beställning, välkommen att handla hos oss på Dajmmans igen!</p>
 
                 `,
