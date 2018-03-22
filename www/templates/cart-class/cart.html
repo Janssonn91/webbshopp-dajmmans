@@ -51,11 +51,7 @@ Object.assign(Cart.prototype, { template(){ return `
           <input type="text" class="form-adress-cart col-6 border-bottom-0" id="cartort" value="${this.user[0] ? this.user[0].postOrt : ''}" placeholder="Ort" required>
         </div>
 
-        <input type="text" class="form-adress-cart col-12 border-bottom-0" id="cartcountry" value="Sverige" placeholder="Sverige" disabled>
-
-        <div class="form-group m-0">
-          <input type="text" class="form-adress-cart border-bottom col-12 bottom-form-rounded" id="cartphone" placeholder="Telefon" value="${this.user[0] ? this.user[0].phone : ''}" required>
-        </div>
+        <input type="text" class="form-adress-cart col-12 border-bottom bottom-form-rounded" id="cartcountry" value="Sverige" placeholder="Sverige" disabled>
 
       </div>
       <div class="checkout-summery col-12 mt-4 mt-md-0 col-md-6 mb-1">
@@ -86,8 +82,9 @@ Object.assign(Cart.prototype, { template(){ return `
 <div class="modal fade" id="confirmorder" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <div class="modal-body">
-        Tack för din beställning!
+      <div class="modal-body text-dark">
+        <h3>Tack för din beställning!</h3>
+        <p>Du blir nu skickad till dina sidor där du kan se alla dina beställningar.</p>
       </div>
     </div>
   </div>
