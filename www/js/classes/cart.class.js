@@ -156,6 +156,7 @@ class Cart extends REST {
       vat: totalVat,
       adress: adresses
       });
+      console.log(order);
       this.adjustStock(order);
       $('#confirmorder').modal('show');
 
@@ -170,6 +171,8 @@ class Cart extends REST {
       await this.sendMail(order)
     }
   }
+
+  setOrderNo(){}
 
   async adjustStock(order) {
     for(let product of order.products) {
@@ -214,9 +217,7 @@ class Cart extends REST {
         if(this.bankcardCheck()){
           await this.confirmOrder();
           $('#confirmorder').on('hidden.bs.modal', async () => {
-            await $('main').empty();
-            this.render('main');
-            app.header.render();
+            location.pathname = '/mina_sidor';
           })
         }
       }
