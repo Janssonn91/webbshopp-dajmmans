@@ -15,7 +15,7 @@ Object.assign(Userpage.prototype, { template1(){ return `
 		      </li>
 		    </ul>
   		</div>
-	  	<div class="card-body p-3">
+	  	<div class="card-body p-3 text-light">
 		  	<h4 class="mb-2 mt-3">Dina aktuella ordrar:</h4>
 		  	${this.activeOrders.length == 0 ? '' : 'Klicka på en order för mer info.'}
 		    <div id="accordion" class="active-orders mt-2 render-order-area">
