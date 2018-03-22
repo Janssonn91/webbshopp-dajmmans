@@ -156,7 +156,6 @@ class Cart extends REST {
       vat: totalVat,
       adress: adresses
       });
-      console.log(order);
       this.adjustStock(order);
       $('#confirmorder').modal('show');
 
@@ -167,7 +166,6 @@ class Cart extends REST {
       order.orderdate = order.orderdate.substring(0,10);
       order.orderno = order._id.substring(18,24);
       order.save();
-      //setTimeout(() => {this.sendMail(order, this.productName)}, 100);
       await this.sendMail(order)
     }
   }
