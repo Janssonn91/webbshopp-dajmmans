@@ -1,13 +1,29 @@
 class UserpageItem extends REST {
-  constructor(product, app, co) {
+  constructor(product, co) {
   	super();
-    this.product = product;
-  	this.app = app;
     this.co = co;
+    this.productName = [];
     for (let value in product) {
       this[value] = product[value];
     }
-    this.product.orderdate = this.product.orderdate.substring(0,10)
+    this.orderdate = this.orderdate.substring(0,10);
+    this.findProducts();
+  }
+
+  async findProducts() {
+    let all = new All();
+
+    this.products.forEach( async (product) => {
+      let skatt = await all.getResult({_id: product._id});
+      await this.productName.push(' ' + skatt[0].title);
+    });
+
+    // Teknisk skuld
+    setTimeout(() => {
+      $('main').empty();
+      app.user.render('main', 1);
+    }, 800);
+
   }
 
 }

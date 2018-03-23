@@ -1,11 +1,15 @@
 const qs = require('qs');
+const ModelAndRoutes = require('./model-and-routes.class');
+var path = require('path');
 
-module.exports = class LoginHandler {
+module.exports = class LoginHandler extends ModelAndRoutes {
 
   constructor(expressApp){
+    super();
     this.expressApp = expressApp;
     this.loginRoute();
     this.logoutRoute();
+    this.adminRoute();
   }
 
   loginRoute(){
@@ -54,6 +58,19 @@ module.exports = class LoginHandler {
         });
       });
 
+    });
+  }
+
+  adminRoute(){
+    this.expressApp.get('/admin', (req, res) => {
+      let userEmail = req.session && req.session.data &&
+        req.session.data.user && req.session.data.user.email;
+      
+      if(userEmail !== "admin@admin.se"){
+        res.redirect('/');
+        return;
+      }
+      res.sendFile(path.resolve(__dirname+ '/../www/index.html'));
     });
   }
 

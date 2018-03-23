@@ -1,0 +1,15 @@
+Object.assign(Admin.prototype, { template3(){ return `
+    <div class="progress-bar w-25 d-none" id="orderStatus-1-${this.order._id}" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+        Mottagen
+    </div>
+    <div class="progress-bar w-25 bg-info d-none" id="orderStatus-2-${this.order._id}" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+        Behandlad
+    </div>
+    <div class="progress-bar w-25 d-none" id="orderStatus-3-${this.order._id}" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+        Skickad
+    </div>
+    <div class="progress-bar w-25 bg-success d-none" id="orderStatus-4-${this.order._id}" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+        Levererad
+    </div>
+     
+`;}});

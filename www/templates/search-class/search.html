@@ -19,9 +19,7 @@ Object.assign(Search.prototype, { template(){ return `
     </div>
   </div>
   <div class="row">
-    ${this.searchResult.length == 0 ? 'Tyvärr så gav inte din idiotiska sökning någon resultat på vår fantatiska sida om magiska ting.' : this.searchResult.render()}
+    ${this.searchResult.length == 0 ? '<div class="col-12"><p>Tyvärr så gav inte din sökning inte något resultat. Prova igen.</p></div>' : this.searchResult.render()}
   </div>
 </div>
 `;}});
-
-

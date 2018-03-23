@@ -2,9 +2,8 @@ class PopStateHandler extends REST {
 
   // Note: Only instantiate PopStateHandler once!
 
-  constructor(app){
+  constructor(){
     super();
-    this.app = app;
     // Add event handlers for a.pop-links once
     this.addEventHandler();
     // Call changePage on initial page load
@@ -66,36 +65,31 @@ class PopStateHandler extends REST {
       '/login': 'login',
       '/register': 'register',
       '/mina_sidor': 'userPage',
-      '/mina_sidor2': 'userPage2'
+      '/mina_sidor_info': 'userPage2',
+      '/admin': 'admin',
+      '/kopvilkor': 'terms'
     };
 
     //looping through ID
     for (let i = 0; i < All.allProducts.length; i++){
-      let url = `/${All.allProducts[i].result._id}`;
+      let url = `/${All.allProducts[i].constructor.name.toLowerCase()}/produkt/${All.allProducts[i]._id}`;
+      Object.assign(All.allProducts[i], {category: All.allProducts[i].constructor.name.toLowerCase()});
       let target = 'product';
       Object.assign(urls, {[url] : target});
     }
-
     // Call the right method
     let methodName = urls[url];
 
-
     if (methodName =='product') {
-      let productId = url.substr(1);
+      let productId = url.split('/')[3];
       this[methodName](productId);
     }
     else{
       this[methodName]();
     }
 
-    // if (url.split('/')[2] == 'product') {
-    //   methodName = 'product';
-    // }
-
-
-
     // Set the right menu item active
-    this.app.header.setActive(url);
+    app.header.setActive(url);
 
      window.scrollTo(0, 0);
 
@@ -105,91 +99,102 @@ class PopStateHandler extends REST {
 
   startpage(){
     this.empty();
-    this.app.banner = new Banner();
-    this.app.banner.render('.banner-row');
+    app.banner = new Banner();
+    app.banner.render('.banner-row');
     $('.carousel').carousel({
       interval: 3500,
       pause: false
     });
-    this.app.startPage.render('main');
+    app.startPage.render('main');
   }
 
   materiel(){
     this.empty();
-    this.app.productcategory = new ProductCategory(this.app, Materiel);
-    this.app.productcategory.render('main', '3');
+    app.productcategory = new ProductCategory(Materiel);
+    app.productcategory.render('main', '3');
   }
 
   ingredienser(){
     this.empty();
-    this.app.productcategory = new ProductCategory(this.app, Ingredient);
-    this.app.productcategory.render('main', '3');
+    app.productcategory = new ProductCategory(Ingredient);
+    app.productcategory.render('main', '3');
   }
 
   bocker(){
     this.empty();
-    this.app.productcategory = new ProductCategory(this.app, Book);
-    this.app.productcategory.render('main', '3');
+    app.productcategory = new ProductCategory(Book);
+    app.productcategory.render('main', '3');
 
   }
 
   product(productId){
     this.empty();
-    this.app.productPage = new ProductPage(this.app);
-    this.app.productPage.getProduct(productId);
-    this.app.productPage.render('main');
+    app.productPage = new ProductPage();
+    app.productPage.getProduct(productId);
+    app.productPage.render('main');
   }
 
   about(){
     this.empty();
-    this.app.about = new About(this);
-    this.app.about.render('main')
+    app.about = new About(this);
+    app.about.render('main')
   }
 
   search() {
     this.empty();
-    this.app.search = new Search($(document).find('.inputsearch').val(), this.app);
-    this.app.search.render();
+    app.search = new Search($(document).find('.inputsearch').val());
+    app.search.render();
   }
 
   login(){
     this.empty();
-    this.app.login = new Login(this.app);
-    this.app.login.render();
-    this.app.logout = new Logout(this.app);
+    app.login = new Login();
+    app.login.render();
+    app.logout = new Logout();
   }
 
   register(){
     this.empty();
-    this.app.register = new Register(this.app);
-    this.app.register.render();
+    app.register = new Register();
+    app.register.render();
   }
 
   userPage(){
     this.empty();
-    this.app.user = new Userpage(this.app);
+    app.user = new Userpage();
   }
 
   userPage2(){
     this.empty();
-    this.app.user = new Userpage2(this.app);
+    app.user = new Userpage2();
+  }
+  admin(){
+    this.empty();
+    app.admin = new Admin();
+    app.admin.render('main','1');
   }
 
   cart(){
     this.empty();
-    this.app.cart = new Cart(this.app);
+    app.cart = new Cart();
   }
 
   user(){
     this.empty();
-    this.app.userPage = new Userpage(this);
-    this.app.userPage.render('main', '1');
+    app.userPage = new Userpage(this);
+    app.userPage.render('main', '1');
   }
 
   user2(){
     this.empty();
-    this.app.userPage = new Userpage(this);
-    this.app.userPage.render('main', '2');
+    app.userPage = new Userpage(this);
+    app.userPage.render('main', '2');
+  }
+
+  terms(){
+    this.empty();
+    app.terms = new Terms(this);
+    app.terms.render();
   }
 
   empty() {

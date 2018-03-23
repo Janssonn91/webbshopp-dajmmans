@@ -1,0 +1,29 @@
+[
+	{
+	"email": "dajmman@voodoo.nu",
+    "firstName": "Dajmman",
+    "lastName": "Dajmmsson",
+    "password": "666",
+    "adress": "Helvetet",
+    "postnr": 66666,
+    "postOrt": "Hell"
+	},
+	{
+	"email": "thomas@nodebite.se",
+    "firstName": "Thomas",
+    "lastName": "Frank",
+    "password": "javascriptkung",
+    "adress": "Lernia",
+    "postnr": 3,
+    "postOrt": "Föreläsningssal"
+	},
+    {
+    "email": "admin@dajmman.se",
+    "firstName": "admin",
+    "lastName": "admin",
+    "password": "123",
+    "adress": "",
+    "postnr": 0,
+    "postOrt": ""
+    }
+]

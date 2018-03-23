@@ -1,7 +1,10 @@
 Object.assign(Login.prototype, { template(){ return `
+<div class="row">
+  <div class="col-12 mx-auto col-md-6">
+    <h1>Logga in <i class="fas fa-plug awesomeness"></i></h1>
   <form class="mt-2" id="loginForm" role="form">
-        <p id="loginSuccess" class="text-dark text-center border border-success d-none">Inloggningen lyckades! Du når din profil under "Mina sidor".</p>
-        <p id="logoutSuccess" class="text-dark text-center border border-success d-none">Du är nu utloggad, logga in igen för att se "Mina sidor".</p>
+        <p id="loginSuccess" class="text-light text-center border border-success d-none">Inloggningen lyckades! Du når din profil under "Mina sidor".</p>
+        <p id="loginFail" class="text-light text-center border border-danger d-none">Användarnamn eller lösenord är fel!</p>
         <div class="form-group">
           <label for="exampleInputEmail1">E-postadress</label>
           <input type="email" class="form-control" required id="loginEmail" aria-describedby="emailHelp" placeholder="t.ex. svensson@gmail.com">
@@ -13,7 +16,7 @@ Object.assign(Login.prototype, { template(){ return `
         </div>
         <input type="submit" class="btn btn-success login btn-block mb-3" value="Logga in"></input>
       </form>
-      <a class="pop btn bg-primary text-dark mt-3" type="button" data-toggle="tooltip" title="Skapa nytt konto" href="/register">Skapa konto</a>
-      <input type="submit" class="btn btn-danger logout mt-3" id="logoutBtn" value="Logga ut"></input>
+    </div>
+  </div>
 
 `;}});

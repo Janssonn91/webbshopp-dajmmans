@@ -1,21 +1,43 @@
 class Cart extends REST {
-  constructor(app) {
-    super();
-    this.app = app;
+  constructor(result) {
+    super(result);
     this.cartItems = [];
-    this.getCartItems();
+    if(!result){
+      this.getCartItems();
+    }
   }
 
   async getCartItems() {
+    this.userId = await UserHandler.check();
     let all = new All();
-    for (let item of this.app.shoppingCart) {
+    await this.loadCart();
+    for (let item of app.shoppingCart) {
       let searchObj = await all.getResult({_id: item._id});
-      searchObj = searchObj[0].result;
+      searchObj = searchObj[0];
       searchObj.quantity = item.quantity;
       if (searchObj.stockBalance - item.quantity < 0) searchObj.stockWarning = true;
       this.cartItems.push(new CartItem(searchObj, this));
     }
-    return this.render();
+    // if statement to not render on startpage.
+    if (location.pathname == '/kassa'){
+      $('main').empty();
+      this.render();
+      if(!this.userId[0]){
+        $('.form-container').addClass('d-none');
+        $('.form-container-error').removeClass('d-none');
+      }
+    }
+
+      this.saveCart();
+  }
+
+  async loadCart(){
+    this.user = (await UserHandler.check());
+    let cart = (await Cart.findOne({userId: this.user.info.query}));
+    if (app.shoppingCart.length === 0 && cart){
+      app.shoppingCart = cart.items;
+      app.header.render()
+    }
   }
 
   getTotalPrice(){
@@ -48,36 +70,196 @@ class Cart extends REST {
     }
   }
 
-  approveCustomerData() {
+  getTotalPriceExVat(){
+    let totalPrice = this.getTotalPrice();
+    let totalVat = this.getTotalVat();
+    return totalPrice - totalVat;
+  }
 
-     return true;
+  async saveCart() {
+    let userId = await UserHandler.check();
+    let b = userId;
+    userId = userId.info.query;
+    let cartObj = (await Cart.findOne({userId: userId}));
+    // Check if there is a cart with logged in user
+    if (cartObj) {
+      cartObj.items = app.shoppingCart;
+      await cartObj.save();
+    } else {
+      return await Cart.create({
+        userId: userId,
+        items: app.shoppingCart
+      });
+    }
+  }
+
+  approveCustomerData() {
+    let adresses = {
+      firstname: $('#cartfirstname').val(),
+      lastname: $('#cartlastname').val(),
+      adress: $('#cartadress').val(),
+      postnr: $('#cartpostnr').val(),
+      postort: $('#cartort').val(),
+      phone: $('#cartphone').val(),
+      email: $('#cartemail').val(),
+      country: $('#cartcountry').val()
+    }
+    return adresses;
+  }
+
+  bankcardCheck() {
+    let cardNumber = $('#cardNumber').val();
+    let expireDate = $('#expireDate').val();
+    let cvc = $('#cvc').val();
+
+    let re16digit = /^\d{4}[- ]?\d{4}[- ]?\d{4}[- ]?\d{4}$/
+    let reDate = /^\d{2}[- \/]?\d{2}/
+    let re3digit = /\d{3}/
+
+    if (!re16digit.test(cardNumber) ||
+        !reDate.test(expireDate) ||
+        !re3digit.test(cvc) )
+    {
+
+      $('.checkout-summery .alert').remove();
+      $('.checkout-summery').append(`
+
+        <div class="alert alert-danger alert-dismissible fade show mb-5 mt-3" role="alert">
+          <strong>Försök igen! Kolla över det du skrivit så det verkligen stämm,
+          er.</strong>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        `);
+      clearTimeout(this.alertTimeoutStart);
+      this.alertTimeoutStart = setTimeout(()=> {
+        $('.checkout-summery .alert').alert('close');
+      }, 6000);
+      return false;
+    }
+    return true;
   }
 
   async confirmOrder() {
 
-    if(this.app.shoppingCart.length !== 0 && this.approveCustomerData()) {
-
-      this.app.shoppingCart = [];
-      this.cartItems = [];
+    if(app.shoppingCart.length !== 0) {
+      let adresses = this.approveCustomerData();
+      let totalPrice = this.getTotalPrice();
+      let totalVat = this.getTotalVat();
+      let user = (await UserHandler.check());
 
       let order = await Order.create({
+      name: user[0].firstName + ' ' + user[0].lastName,
       orderno: 123,
-      products: ["String"],
-      status: "String",
+      products: app.shoppingCart,
       orderdate: Date.now(),
-      customerid: "String",
-      price: 123,
-      vat: Number
-    } );
+      customerid: this.userId[0]._id,
+      price: totalPrice,
+      vat: totalVat,
+      adress: adresses
+      });
+      this.adjustStock(order);
       $('#confirmorder').modal('show');
-    }
 
+      app.shoppingCart = [];
+      this.cartItems = [];
+      this.saveCart();
+      order.email = $('#cartemail').val();
+      order.orderdate = order.orderdate.substring(0,10);
+      order.orderno = order._id.substring(18,24);
+      order.save();
+      await this.sendMail(order)
+    }
   }
 
-  click () {
-    if ($(event.target).hasClass('confirmorder')) {
-      this.confirmOrder();
+  setOrderNo(){}
+
+  async adjustStock(order) {
+    for(let product of order.products) {
+      let myProduct;
+      if (product.category == 'ingredient') {
+        myProduct = await Ingredient.findOne({_id: product._id});
+        myProduct.stockBalance -= product.quantity;
+        await myProduct.save();
+      } else if(product.category == 'book') {
+        myProduct = await Book.findOne({_id: product._id});
+        myProduct.stockBalance -= product.quantity;
+        await myProduct.save();
+      } else if(product.category == 'materiel') {
+        myProduct = await Materiel.findOne({_id: product._id});
+        myProduct.stockBalance -= product.quantity;
+        await myProduct.save();
+      }
     }
+  }
+
+  async click() {
+    if ($(event.target).hasClass('confirmorder')) {
+      this.user = await UserHandler.check();
+      if(!this.user[0]){
+        $('.checkout-summery .alert').remove();
+        $('.checkout-summery').append(`
+
+          <div class="alert alert-danger alert-dismissible fade show mb-5 mt-3" role="alert">
+            <strong>Var god logga in för att fullfölja din order.</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+
+          `);
+        clearTimeout(this.alertTimeoutStart);
+        this.alertTimeoutStart = setTimeout(()=> {
+          $('.checkout-summery .alert').alert('close');
+        }, 6000);
+      }
+      else {
+        if(this.bankcardCheck()){
+          await this.confirmOrder();
+          $('#confirmorder').on('hidden.bs.modal', async () => {
+            location.pathname = '/mina_sidor';
+          })
+        }
+      }
+    }
+  }
+
+  sendMail(order){
+
+    let productName = [];
+    let quantity = [];
+    order.products.forEach( async (product) => {
+      let kalle = All.allProducts.filter((o) => o._id == product._id);
+      productName.push(kalle[0]);
+      quantity.push(product.quantity);
+    });
+
+    let productItems = '';
+
+    for(let i = 0; i < productName.length; i++){
+      productItems += productName[i].title + ' (x' + quantity[i] + '), ';
+    }
+
+      let body = {
+        orderdate: order.orderdate,
+        email: order.email,
+        orderno: order.orderno,
+        username: order.name,
+        products: productItems,
+        totalprice: order.price
+      };
+
+      let reqObj = {
+        url: `/send-mail`,
+        method: 'POST',
+        data: JSON.stringify(body),
+        dataType: 'json',
+        processData: false,
+        contentType: "application/json; charset=utf-8"
+      };
+      $.ajax(reqObj);
   }
 
 }

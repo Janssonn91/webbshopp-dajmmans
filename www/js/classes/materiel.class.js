@@ -1,7 +1,6 @@
 class Materiel extends REST {
   constructor(result){
-    super();
-    this.result = result;
+    super(result);
     Materiel.title = 'Materiel';
     Materiel.breadText = `
     Är du en erfaren eller nybörjare? Vi har allt materiel som du kan tänkas behöva till dom bästa priserna på webben.

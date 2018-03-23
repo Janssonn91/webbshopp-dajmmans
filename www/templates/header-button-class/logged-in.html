@@ -1,0 +1,13 @@
+Object.assign(HeaderButton.prototype, { template2(){ return `
+  <div class="btn-group mr-1" role="group">
+    <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Inloggad
+    </button>
+    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+      <a class="dropdown-item pop" href="/mina_sidor" aria-haspopup="true" aria-expanded="false">Mina sidor</a>
+      <input type="submit" class="dropdown-item logout mt-3" id="logoutBtn" value="Logga ut" onclick="location.href='/';"></input>
+    </div>
+  </div>
+
+
+  `;}});

@@ -23,6 +23,7 @@ Object.assign(CartItem.prototype, { template(){ return `
         ${this.stockWarning ? `
         <div class="bg-warning alert-warning p-2">Obs! Endast ${this.stockBalance} kvar</div>` : `I lager ${this.stockBalance < 5 ? `${this.stockBalance}` : ''}`}
         <p class="m-0">${this.price} kr / st</p>
+        <p class="m-0 text-muted">Varav moms: ${this.getVatPerItem()} / st</p>
         <h4 class="text-danger mb-0">Totalt: ${this.getTotalPrice()} kr</h4>
       </div>
     </div>

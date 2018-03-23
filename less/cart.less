@@ -57,7 +57,7 @@
   right: 1em;
 }
 
-.form-container, .cart-body {
+.form-container, .cart-body, .form-container-error {
   background: @bodyBg-colour;
   border-radius: 5px;
   color: rgb(240,240,240);
@@ -67,12 +67,12 @@
 .addminus {
   height: 40px;
 }
-.cart-body{
+
+#accordion-cart{ .card-body {
   color: white;
-  background-color: #333;
-}
-.card-body {
+  background-color: @bodyBg-colour;
   padding: 0;
+  }
 }
 
 .hover-delete-item {

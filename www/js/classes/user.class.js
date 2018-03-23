@@ -1,6 +1,6 @@
 class User extends REST {
-  constructor() {
-    super();
+  constructor(result) {
+    super(result);
   }
 
 }
