@@ -22,6 +22,10 @@ class Cart extends REST {
     if (location.pathname == '/kassa'){
       $('main').empty();
       this.render();
+      if(!this.userId[0]){
+        $('.form-container').addClass('d-none');
+        $('.form-container-error').removeClass('d-none');
+      }
     }
 
       this.saveCart();
