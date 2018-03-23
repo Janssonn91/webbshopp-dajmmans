@@ -45,7 +45,7 @@ Object.assign(Admin.prototype, { template2(){ return `
                 </div>
                 <div class="col-md-3">
                     <p class="orderProductDetail">
-                        <b>${this.orderProductQuantity == 1 ? 'Produkt' : 'Produkter'}:</b> ${this.product.title.toString()} (${this.orderProductQuantity})
+                        <b>${this.orderProductQuantity == 1 ? 'Produkt' : 'Produkter'}:</b> ${this.productItems}
                     </p>
                 </div>
                 <div class="col-12">
