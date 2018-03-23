@@ -37,7 +37,7 @@ Object.assign(Cart.prototype, { template(){ return `
   <div class="row my-2 border border-dark rounded p-2 pt-4 pb-4 mx-0 form-container">
     <!-- <form> -->
       <div class="adress-form-container col-12 col-md-6">
-        <h5>Adress</h5>
+        <h5>Adress</h5> <p class="text-danger" id="#warningBuyText">Tänk på att du måste vara inloggad för att kunna slutföra en beställning.</p>
         <input type="email" class="form-adress-cart col-12 border-bottom-0 top-form-rounded" id="cartemail" placeholder="Epost" value="${this.user[0] ? this.user[0].email : ''}" required>
         <div class="form-group d-flex flex-nowrap col-12 m-0 p-0">
           <input type="text" class="form-adress-cart col-6 border-bottom-0 border-right-0" id="cartfirstname" placeholder="Förnamn" value="${this.user[0] ? this.user[0].firstName : ''}" required>
