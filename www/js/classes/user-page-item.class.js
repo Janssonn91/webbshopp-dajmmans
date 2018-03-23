@@ -15,14 +15,14 @@ class UserpageItem extends REST {
 
     this.products.forEach( async (product) => {
       let skatt = await all.getResult({_id: product._id});
-      await this.productName.push(skatt[0].title);
+      await this.productName.push(' ' + skatt[0].title);
     });
 
     // Teknisk skuld
     setTimeout(() => {
       $('main').empty();
       app.user.render('main', 1);
-    }, 100);
+    }, 800);
 
   }
 

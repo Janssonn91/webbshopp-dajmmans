@@ -12,13 +12,8 @@ Object.assign(UserpageItem.prototype, { template(){ return `
         <p><b>Ordern är: ${this.status}</b></p>
       	<p>${this.products.length == 1 ? 'Produkt' : 'Produkter'}: ${this.productName}</p>
         <p>Beställd: ${this.orderdate}</p>
-        <p>Totalpris: ${this.price}</p>
+        <p>Totalpris: ${this.price} kr</p>
       </div>
     </div>
   </div>
 `;}});
-
-
-
-
-
